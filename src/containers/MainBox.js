@@ -3,7 +3,33 @@ import MenuBar from '../components/MenuBar.js'
 import { Profile, Photos, Cocktails, Pokemon} from '../components/Pages.js'
 
 class MainBox extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      display: ''
+    }
+  }
 
+  notDry = (event) => {
+    this.setState({
+      display: event.target.id
+    })
+  }
+
+  display() {
+    switch(this.state.display) {
+      case 'profile':
+        return Profile()
+      case 'photo':
+        return Photos()
+      case 'cocktail':
+        return Cocktails();
+      case 'pokemon':
+        return <Pokemon />
+      default:
+        return <div>Hi, I'm a div!</div>;
+    }
+  }
 
   render() {
 
@@ -13,12 +39,10 @@ class MainBox extends React.Component {
 
     */
 
-    const detailsToDisplay = <div>Hi, I'm a div!</div>
-
     return (
       <div>
-        <MenuBar />
-        {detailsToDisplay}
+        <MenuBar notDry={this.notDry} display={this.state.display} />
+        {this.display()}
       </div>
     )
   }
